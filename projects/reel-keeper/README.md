@@ -4,8 +4,9 @@ Share a reel to the app → it summarizes the video, pulls out every useful thin
 it mentions (websites, apps, products, places, recipes, accounts), files it in a
 category, and makes it searchable later.
 
-This folder has the **design** (below) and a **working prototype** of the core
-pipeline (`reel_keeper.py`) that runs from the command line.
+This folder has the **design** (below), a **clickable app mockup**
+(`mockup/index.html`, open it in a browser), and a **working prototype** of the
+core pipeline (`reel_keeper.py`) that runs from the command line.
 
 ---
 
