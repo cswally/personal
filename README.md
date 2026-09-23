@@ -1,11 +1,11 @@
-# claude_cook
+# personal
 
-Coursework repository for hands-on activities and projects built with Claude.
+Personal repository for hands-on activities and projects built with Claude.
 
 ## Structure
 
 ```
-activities/   # Short in-class and hands-on exercises
+activities/   # Short hands-on exercises
 projects/     # Larger course projects
 ```
 
@@ -16,3 +16,7 @@ what it is, how to run it, and any notes or takeaways.
 
 - Work happens on branches; merge into `main` when something is complete.
 - Commit early and often with clear messages.
+
+## Projects
+
+- [`projects/reel-keeper`](projects/reel-keeper/): save a reel via the share sheet, get a summary, extracted links, and a category.
