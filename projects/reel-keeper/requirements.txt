@@ -1,0 +1,4 @@
+anthropic>=1.8
+pydantic>=2
+yt-dlp
+faster-whisper
