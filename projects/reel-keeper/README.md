@@ -68,8 +68,8 @@ returns immediately. All the heavy work runs in a background job.
 |---|---|---|
 | 1. Fetch | Video file + caption + thumbnail from the URL | `yt-dlp` (see legal note) |
 | 2. Transcribe | Speech → text | Whisper (`faster-whisper` locally, or a hosted speech-to-text API) |
-| 3. Frames | ~8 evenly spaced frames, 768 px wide. On-screen text is often where the URL or product name appears | `ffmpeg` |
-| 4. Analyze | Caption + transcript + frames → structured JSON (below) | Claude (`claude-opus-5`, vision + structured outputs) |
+| 3. Frames | 4 evenly spaced frames, 768 px wide. On-screen text is often where the URL or product name appears | `ffmpeg` |
+| 4. Analyze | Caption + transcript + frames → structured JSON (below) | Claude (`claude-sonnet-5`, vision + structured outputs) |
 | 5. Resolve links | For resources named but not linked ("this site called Gamma"), find the official URL | Claude with the web search tool |
 | 6. Store | Save the row, full-text index, embedding for semantic search | Postgres FTS + pgvector (prototype: SQLite FTS5) |
 
@@ -162,9 +162,18 @@ than the reels themselves.
 | AI | Claude API: vision + structured outputs + web search | One model call does summary, extraction, and categorization |
 | Push | Expo Notifications | "Saved to …" confirmation |
 
-**Rough cost per reel:** ~8 images plus a transcript is a few thousand input
-tokens. That's a few cents per reel on Opus. Transcription is free if run
-locally. Once quality is proven, try Sonnet or lower effort to cut cost.
+**Rough cost per reel** (estimates from list prices; confirm with real runs):
+
+| Model | Per reel | 100 reels/month |
+|---|---|---|
+| Claude Sonnet 5 with 4 frames (the prototype's setting) | ~3–5¢ | ~$3–5 |
+| Claude Opus 5 with 8 frames | ~10–15¢ | ~$10–15 |
+| Claude Haiku 4.5 with 4 frames | ~1–2¢ | ~$1–2 |
+
+The frames are the biggest cost, so fewer frames is the main lever. The
+link lookup adds about a cent when it runs, and transcription is free when run
+locally. The API is pay-per-use and separate from a Claude subscription. Set a
+monthly spending limit in the Anthropic console.
 
 ---
 

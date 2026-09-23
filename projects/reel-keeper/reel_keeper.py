@@ -26,9 +26,10 @@ from typing import Literal
 import anthropic
 from pydantic import BaseModel
 
-MODEL = "claude-opus-5"
+# Sonnet 5 keeps cost around 3-5 cents per reel; switch to "claude-opus-5" if summaries fall short.
+MODEL = "claude-sonnet-5"
 DB_PATH = Path(__file__).with_name("reels.db")
-MAX_FRAMES = 8
+MAX_FRAMES = 4
 
 # Fixed top-level categories keep browsing predictable; free-form tags carry the detail.
 CATEGORIES = [
@@ -123,11 +124,8 @@ def sample_frames(video: Path, workdir: Path) -> list[Path]:
 
 
 def create_message(client: anthropic.Anthropic, **params):
-    # Server-side fallback: if a request is declined, the API retries it on a recommended model.
-    response = client.beta.messages.create(
+    response = client.messages.create(
         model=MODEL,
-        betas=["server-side-fallback-2026-07-01"],
-        fallbacks="default",
         thinking={"type": "adaptive"},
         **params,
     )
